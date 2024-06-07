@@ -1,0 +1,94 @@
+/* app/static/styles.css */
+body {
+    background-color: #f8f9fa;
+    color: #212529;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px;
+}
+
+#character-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#character {
+    max-width: 100%;
+    height: 150%;
+}
+
+#speech-bubble {
+    position: absolute;
+    top: 20%;
+    left: 65%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+#speech-bubble::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 10px solid transparent;
+    border-right-color: #fff;
+}
+
+.chat-container {
+    width: 100%;
+    max-width: 600px;
+    margin-top: 20px;
+}
+
+.form-control {
+    border-color: #ced4da;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+@media (max-width: 768px) {
+    #character-container {
+        height: 50vh;
+    }
+
+    #speech-bubble {
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
+.user-message {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
