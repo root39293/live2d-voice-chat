@@ -13,14 +13,21 @@ function addUserMessage(message) {
 }
 
 function addMessage(message) {
-    const cleanedMessage = message.trim();
-    speechBubble.textContent = cleanedMessage;
-    speechBubble.style.display = "block";
+    if (typeof message === 'string') {
+        const cleanedMessage = message.trim();
+        speechBubble.textContent = cleanedMessage;
+        speechBubble.style.display = "block";
+    } else {
+        console.error('Invalid message format:', message);
+    }
 }
 
 function playAudio() {
-    const audio = new Audio('/audio');
-    audio.play();
+    const audio = document.getElementById('audio');
+    audio.src = '/audio';
+    audio.play().catch(error => {
+        console.error('오디오 재생 오류:', error);
+    });
 }
 
 function sendMessage() {

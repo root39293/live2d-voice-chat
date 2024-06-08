@@ -9,6 +9,8 @@ from fastapi.staticfiles import StaticFiles
 import asyncio
 import httpx
 import json
+import time
+import uuid
 
 openai_client = OpenAI(api_key="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")
 
@@ -54,7 +56,7 @@ system_prompt = {
 
 conversation_history = [system_prompt]
 
-async def synthesize_audio(text: str) -> str:
+async def synthesize_audio(text: str, audio_file: str) -> str:
     async with httpx.AsyncClient(timeout=60.0) as client:
         try:
             audio_query_response = await client.post(
@@ -70,13 +72,13 @@ async def synthesize_audio(text: str) -> str:
                 data=audio_query_str,
             )
 
-            with open("output.wav", "wb") as f:
+            with open(audio_file, "wb") as f:
                 f.write(synthesis_response.content)
 
-            return "output.wav"
+            return audio_file
         except httpx.HTTPError as e:
             print(f"Error during audio synthesis: {str(e)}")
-            return None
+            raise
 
 async def generate_response(message: str):
     conversation_history.append({"role": "user", "content": message})
@@ -94,9 +96,13 @@ async def generate_response(message: str):
 
         japanese_response, korean_response = assistant_response.split('///')
 
-        audio_task = asyncio.create_task(synthesize_audio(japanese_response.strip()))
+        audio_file = "output.wav"
+        audio_task = asyncio.create_task(synthesize_audio(japanese_response.strip(), audio_file))
 
-        await audio_task
+        try:
+            await audio_task
+        except Exception as e:
+            print(f"Error during audio synthesis: {str(e)}")
 
         return korean_response.strip()
 
@@ -115,4 +121,5 @@ async def chat(message: str = Query(...)):
 
 @app.get("/audio")
 async def get_audio():
-    return FileResponse("output.wav", media_type="audio/wav")
+    audio_file = "output.wav"
+    return FileResponse(audio_file, media_type="audio/wav")

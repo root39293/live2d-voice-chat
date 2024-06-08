@@ -2,6 +2,15 @@
 const speechBubble = document.getElementById("speech-bubble");
 const inputBox = document.getElementById("input-box");
 const sendButton = document.getElementById("send-button");
+const userInputHistory = document.getElementById("user-input-history");
+
+function addUserMessage(message) {
+    userInputHistory.innerHTML = ""; // 이전 대화 내역 지우기
+    const userMessage = document.createElement("div");
+    userMessage.textContent = message;
+    userMessage.classList.add("user-message");
+    userInputHistory.appendChild(userMessage);
+}
 
 function addMessage(message) {
     const cleanedMessage = message.trim();
@@ -17,6 +26,7 @@ function playAudio() {
 function sendMessage() {
     const message = inputBox.value;
     if (!message) return;
+    addUserMessage(message); // 사용자 입력 내역 추가
     inputBox.value = "";
 
     fetch(`/chat?message=${encodeURIComponent(message)}`)
