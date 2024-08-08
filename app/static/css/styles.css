@@ -1,22 +1,20 @@
-/* app/static/styles.css */
-body {
-    background-color: #f8f9fa;
-    color: #212529;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+:root {
+    --primary: #1095c1;
+    --primary-hover: #08769b;
 }
 
-.container {
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 1200px;
     padding: 20px;
 }
 
@@ -24,15 +22,15 @@ body {
     position: relative;
     width: 100%;
     height: 60vh;
-    background-color: #f8f9fa;
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 #character {
     max-width: 100%;
-    height: 150%;
+    height: 100%;
 }
 
 #speech-bubble {
@@ -40,9 +38,10 @@ body {
     top: 20%;
     left: 65%;
     transform: translate(-50%, -50%);
-    background-color: #fff;
+    background-color: var(--primary);
+    color: white;
     border-radius: 10px;
-    padding: 20px;
+    padding: 15px;
     max-width: 300px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     display: none;
@@ -55,22 +54,24 @@ body {
     top: 50%;
     transform: translateY(-50%);
     border: 10px solid transparent;
-    border-right-color: #fff;
+    border-right-color: var(--primary);
 }
 
 .chat-container {
     width: 100%;
     max-width: 600px;
-    margin-top: 20px;
 }
 
-.form-control {
-    border-color: #ced4da;
+#user-input-history {
+    margin-bottom: 20px;
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
+.user-message {
+    background-color: var(--primary);
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {
@@ -85,10 +86,14 @@ body {
     }
 }
 
-
-.user-message {
-    background-color: #e9ecef;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
+@media (max-width: 576px) {
+    #character-container {
+        height: 40vh;
+    }
+    #speech-bubble {
+        max-width: 80%;
+    }
+    .chat-container {
+        max-width: 90%;
+    }
 }

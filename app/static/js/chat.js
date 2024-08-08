@@ -1,16 +1,24 @@
-// chat.js
+// app/static/js/chat.js
+
 const speechBubble = document.getElementById("speech-bubble");
 const inputBox = document.getElementById("input-box");
 const sendButton = document.getElementById("send-button");
 const userInputHistory = document.getElementById("user-input-history");
+const audio = document.getElementById('audio');
+const chatForm = document.getElementById("chat-form");
 
 function addUserMessage(message) {
-    userInputHistory.innerHTML = ""; // 이전 대화 내역 지우기
+    userInputHistory.innerHTML = "";
     const userMessage = document.createElement("div");
     userMessage.textContent = message;
     userMessage.classList.add("user-message");
     userInputHistory.appendChild(userMessage);
 }
+
+chatForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+    sendMessage();
+});
 
 function addMessage(message) {
     if (typeof message === 'string') {
@@ -23,32 +31,32 @@ function addMessage(message) {
 }
 
 function playAudio() {
-    const audio = document.getElementById('audio');
     audio.src = '/audio';
     audio.play().catch(error => {
-        console.error('오디오 재생 오류:', error);
+        console.error('Audio playback error:', error);
     });
 }
 
-function sendMessage() {
-    const message = inputBox.value;
+async function sendMessage() {
+    const message = inputBox.value.trim();
     if (!message) return;
-    addUserMessage(message); // 사용자 입력 내역 추가
+
+    addUserMessage(message);
     inputBox.value = "";
 
-    fetch(`/chat?message=${encodeURIComponent(message)}`)
-        .then(response => response.json())
-        .then(data => {
-            const koreanMessage = data.message;
-            addMessage(koreanMessage);
-            playAudio();
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
+    try {
+        const response = await fetch(`/chat?message=${encodeURIComponent(message)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        addMessage(data.message);
+        playAudio();
+    } catch (error) {
+        console.error("Error:", error);
+        addMessage("An error occurred. Please try again.");
+    }
 }
-
-sendButton.addEventListener("click", sendMessage);
 
 inputBox.addEventListener("keypress", function(event) {
     if (event.key === "Enter") {

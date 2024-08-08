@@ -1,6 +1,0 @@
-fastapi
-uvicorn
-jinja2
-sse_starlette
-openai
-deep_translator

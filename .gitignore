@@ -1,3 +1,24 @@
-.venv
-__pycache__
+# Python
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual Environment
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+
+# Project specific
 output.wav
+app/models/live2d/
+
+# Logs
+*.log
+
+# OS generated files
+.DS_Store
+Thumbs.db

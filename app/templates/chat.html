@@ -1,33 +1,38 @@
+
 <!-- app/templates/chat.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-    <link rel="stylesheet" type="text/css" href="https://csshake.surge.sh/csshake.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Live2D Chat</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.*/css/pico.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
     <script src="https://cubism.live2d.com/sdk-web/cubismcore/live2dcubismcore.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.5.6/browser/pixi.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/cubism4.min.js"></script>
-    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@6.5.1/dist/browser/pixi.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pixi-live2d-display/dist/index.min.js"></script>
 </head>
-<body class="csshake-slow">
-    <div id="character-container">
-        <canvas id="character"></canvas>
-        <div id="speech-bubble"></div>
-    </div>
-    <div class="chat-container">
-        <div id="user-input-history"></div>
-        <div class="input-group">
-            <input type="text" id="input-box" class="form-control" placeholder="Type a message...">
-            <div class="input-group-append">
-                <button id="send-button" class="btn btn-primary">Send</button>
-            </div>
+<body>
+    <main class="container">
+        <div id="character-container">
+            <canvas id="character"></canvas>
+            <div id="speech-bubble" role="alert"></div>
         </div>
-    </div>
-    <audio id="audio" src="/audio" style="display: none;"></audio>
-    <script src="/static/js/chat.js"></script>
-    <script src="/static/js/live2d.js"></script>
+
+        <div class="chat-container">
+            <div id="user-input-history"></div>
+            <form id="chat-form">
+                <div class="grid">
+                    <input type="text" id="input-box" placeholder="메시지를 입력하세요..." required>
+                    <button type="submit" id="send-button">Send</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <audio id="audio" style="display: none;"></audio>
+
+    <script src="{{ url_for('static', path='/js/chat.js') }}"></script>
+    <script src="{{ url_for('static', path='/js/live2d.js') }}"></script>
 </body>
 </html>
