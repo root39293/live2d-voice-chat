@@ -1,21 +1,20 @@
-# Interactive Live2D Voice Chat
+# live2d-voice-chat
 
-실시간 Conversation이 가능한 Live2D 캐릭터와 음성 합성을 활용한 대화형 채팅 인터페이스 개인 프로젝트입니다.
+LLM 기반의 실시간 대화가 가능한 Live2D 캐릭터와 일본어 음성 합성을 결합한 간단한 채팅 인터페이스를 구현한 토이프로젝트
 
 ## 주요 기능
 
-- Live2D 캐릭터 실시간 립싱크 표시
-- 텍스트-음성 변환 (TTS) 기능
-- 일본어와 한국어 동시 출력
-- GPT-4o 기반 LLM 응답
+- Live2D 캐릭터의 실시간 립싱크 표시
+- 텍스트를 음성으로 변환하는 TTS 기능 지원
+- 일본어와 한국어 동시 출력 가능
+- LLM 기반 응답 제공
 
 ## Stack
 
 - FastAPI
 - Static Web
 - VOICEVOX
-- GPT-4o
-
+- LLM
 
 ## Requirements
 - Python 3.8+
